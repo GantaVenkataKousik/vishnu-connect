@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home / Twitter</title>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+        integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="/styles/vishnu/post.css">
+    <style>
+        *{
+            text-decoration: none;
+            list-style-type: none;
+            color : black;
+        }
+        .upload-btn {
+            cursor: pointer;
+            font-size: 22px;
+            letter-spacing: 2px;
+        }
+
+        .post_footer span i {
+            margin-right: 10px;
+        }
+        .Menu-options{
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- nav bar starts -->
+    <nav>
+        <div class="nav_logo-wrapper logo">
+            <img src="/assets/vishnu.png" alt="">
+        </div>
+
+
+        <a href="/api/v2/vishnu/home?userid=<%= user._id %>">
+            <div class="Menu_options active">
+                <span class="material-icons">home</span>
+                <h2>Home</h2>
+            </div>
+        </a>
+
+        <a href="/api/v2/vishnu/myPosts?userid=<%= user._id %>">
+            <div class="Menu_options">
+
+                <span class="material-icons">tag</span>
+                <h2>My Posts</h2>
+
+            </div>
+        </a>
+
+        <a href="/api/v2/vishnu/myLikedTweets?userid=<%= user._id %>">
+        <div class="Menu_options" style="margin-left: 10px;">
+            <i class="fa-solid fa-heart" style="margin-right: 5px; font-size:18px;"></i>
+            <h2 >Liked Tweets</h2>
+        </div>
+        </a>
+        <div class="Menu_options">
+            <span class="material-icons">notifications</span>
+            <h2>Notification</h2>
+        </div>
+
+        <div class="Menu_options">
+            <span class="material-icons">email</span>
+            <h2>Messages</h2>
+        </div>
+
+        <a href="/api/v2/vishnu/myBoomarkedTweets?userid=<%= user._id %>">
+            <div class="Menu_options">
+               
+                    <span class="material-icons">bookmark</span>
+                    <h2>Bookmarked Tweets</h2>
+                
+            </div>
+        </a>
+
+        <div class="Menu_options">
+            <span class="material-icons">person</span>
+            <h2>Profile</h2>
+        </div>
+
+        <div class="Menu_options">
+            <span class="material-icons">more_horiz</span>
+            <h2>More</h2>
+        </div>
+
+
+
+
+    </nav>
+    <!-- nav bar end -->
+
+    <input type="hidden" name="userid" id="userid" value="<%= user._id %>">
+    <!-- main section start -->
+    <main>
+        <h1 style="margin-left: 10px;"> Post and Comments</h1>
+        <div class="post" data-postid="<%= allTweets[0]._id %>">
+            <div class="post_profile-image">
+                <img src="<%= allTweets[1].profileUrl %>" alt="java-logo">
+            </div>
+        
+            <div class="post_body">
+                <div class="post_header">
+                    <div class="post_header-text">
+                        <h2>
+                            <%= allTweets[1].name %>
+                            <span class="header-icon-section">
+                                <span class="material-icons post_badge" style="font-size:28px;">verified</span>@<%= allTweets[1].name %>
+                            </span>
+                        </h2>
+                    </div>
+        
+                    <div class="post_header-discription">
+                        <p>
+                            <%= allTweets[0].tweetBody %>
+                        </p>
+                    </div>
+                </div>
+        
+                <img src="<%= allTweets[0].imgUrl %>" alt="java18">
+        
+                <div class="post_footer">
+                    <span class="comment"><i class="fa-solid fa-comment"></i>
+                        <%= allTweets[0].commentsCnt %>
+                    </span>
+                    <span><i class="fa-solid fa-repeat"></i>
+                        <%= allTweets[0].repostCnt %>
+                    </span>
+                    <button class="like-button" data-postid="<%= allTweets[0]._id %>">
+                        <i class="fa-solid fa-heart"></i>
+                        <%= allTweets[0].likesCnt %>
+                    </button>
+                    <div class="popup" onmouseover="myFunction()"><i class="fa-solid fa-upload"></i>
+                         <span class="popuptext" id="myPopup"><a href=""  style="color: #fff; margin-bottom: 5px;">Copy link to share post</a> <i class="fa-regular fa-copy"  style="color: #fff; margin-left: 3px;  font-size:17px;"></i>
+                        <br>
+                        <a href="/api/v2/vishnu/bookmarkTweet?userid=<%= user._id %>&postid=<%= allTweets[0]._id %>"  style="color: #fff;">Bookmark<i class="fa-regular fa-bookmark"  style="color: #fff; margin-left: 3px; font-size:18px;"></i></a>
+                        </span>
+                    </div>
+                </div>
+                <form method="POST" action="/api/v2/vishnu/addComment">
+                    <input type="hidden" name="userid" value="<%= user._id %>">
+                    <input type="hidden" name="postid" value="<%= allTweets[0]._id %>">
+                    <textarea name="text" class="postComment" placeholder="Enter your comment"></textarea>
+                    <button type="submit">Add Comment</button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="comments">
+            <ul>
+                <% allCmts.forEach(comment => { %>
+
+                    <div class="comment-box">
+                        
+                    <div class="post_header">
+                        <div class="post_header-text">
+                            <h2>
+                                <%= comment.user.name %>
+                                    <span class="header-icon-section">
+                                        <span class="material-icons post_badge">verified</span>@<%=
+                                            comment.user.name %>
+                                    </span>
+                            </h2>
+                        </div>
+    
+                        <div class="post_header-discription">
+                            <p>
+                                <%= comment.comment %>
+                            </p>
+                        </div>
+                    </div>
+                    
+                </div>
+                <% }); %>
+            </ul>
+        </div>
+        <a href="/">Back to all posts</a>
+    </main>
+    
+    <!-- main section end -->
+
+    <!-- aside element start -->
+    <aside>
+
+        <div class="aside_input">
+            <span class="material-icons aside_search-icon">search</span>
+            <input type="text" placeholder="Search Twitter">
+
+        </div>
+
+        <div class="aside_container">
+            <h2>What's happening?</h2>
+            <blockquote class="twitter-tweet">
+                <p lang="en" dir="ltr">Save the date, because <a
+                        href="https://twitter.com/hashtag/JavaOne?src=hash&amp;ref_src=twsrc%5Etfw">#JavaOne</a> is
+                    back! Join the world’s premier <a
+                        href="https://twitter.com/hashtag/developer?src=hash&amp;ref_src=twsrc%5Etfw">#developer</a>
+                    conference in Las Vegas at <a href="https://twitter.com/Oracle?ref_src=twsrc%5Etfw">@Oracle</a>
+                    CloudWorld October 16–20, 2022.<br><br>Subscribe for the latest news about registration, the call
+                    for papers, luminary speakers, and more. <a
+                        href="https://t.co/hhSf3dMGc1">https://t.co/hhSf3dMGc1</a> <a
+                        href="https://t.co/OeDFukcM8K">pic.twitter.com/OeDFukcM8K</a></p>&mdash; Java (@java) <a
+                    href="https://twitter.com/java/status/1506310994112483328?ref_src=twsrc%5Etfw">March 22, 2022</a>
+            </blockquote>
+            <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+        </div>
+
+    </aside>
+    <!-- aside element ends -->
+
+    <script>
+
+
+
+
+    </script>
+
+</body>
+
+
+</html>

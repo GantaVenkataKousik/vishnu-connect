@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<!-- Coding By CodingNepal - youtube.com/codingnepal -->
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Form validation in HTML & CSS | CodingNepal</title>
+  <link rel="stylesheet" href="/styles/auth/register.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+
+    </style>
+
+</head>
+
+<body>
+
+    <ul class="circles">
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+    </ul>
+
+  <section>
+
+
+
+    <div class="img-wrapper">
+      <img src="/assets/auth/register.jpg" alt="">
+    </div>
+
+    <div class="wrapper">
+      <header>SignUp</header>
+      <form action="register" method="POST">
+        <div class="field email">
+          <div class="input-area">
+            <input type="email" name="email" placeholder="Email Address">
+            <i class="icon fas fa-envelope"></i>
+            <i class="error error-icon fas fa-exclamation-circle"></i>
+          </div>
+          <div class="error error-txt">Email can't be blank</div>
+        </div>
+        <div class="field name">
+            <div class="input-area">
+              <input type="text" name="name" placeholder="Enter Name">
+              <i class="icon fas fa-envelope"></i>
+              <i class="error error-icon fas fa-exclamation-circle"></i>
+            </div>
+            <div class="error error-txt">Name can't be blank</div>
+          </div>
+          <div class="field name">
+            <div class="input-area">
+              
+              <i class="fa-solid fa-user" style="margin-left: 13px; color:rgb(192, 182, 182);"></i>
+              <input type="text" placeholder="Place your profile Url" name="profileUrl">
+              <i class="error error-icon fas fa-exclamation-circle"></i>
+            </div>
+            <div class="error error-txt">Profile Url can't be blank</div>
+        </div>
+
+        <div class="field password">
+          <div class="input-area">
+            <input type="password" name="password" placeholder="Password">
+            <i class="icon fas fa-lock"></i>
+            <i class="error error-icon fas fa-exclamation-circle"></i>
+          </div>
+          <div class="error error-txt">Password can't be blank</div>
+        </div>
+        <div class="field confirm-password">
+            <div class="input-area">
+              <input type="password" placeholder="Confirm-Password" name="confirmPassword">
+              <i class="icon fas fa-lock"></i>
+              <i class="error error-icon fas fa-exclamation-circle"></i>
+            </div>
+            <div class="error error-txt">Password can't be blank</div>
+        </div>
+
+        <input type="submit" value="Register">
+        <div class="sign-txt">Already Registered? <a href="/api/v1/auth/login">Login now</a></div>
+      </form>
+
+    </div>
+  </section>
+
+  <footer>
+    <p class="footer copyright-text">&#169;copyright | <span>GantaVenkataKousik </span> | 2023</p>
+  </footer>
+
+  <script src="./register.js"></script>
+</body>
+
+</html>
